@@ -71,7 +71,6 @@
       font-family: 'Crimson Pro', serif;
       font-size: 15px;
       line-height: 1.5;
-      transition: all 0.2s ease;
       display: flex;
       align-items: center;
       gap: 12px;
@@ -81,8 +80,8 @@
     .opt-btn:hover {
       background: rgba(232,200,124,0.2);
       border-color: #e8c87c;
-      transform: translateX(6px);
     }
+    .opt-btn, .opt-btn:hover, .opt-btn.chosen { transition: none; }
     .opt-btn.chosen {
       background: rgba(232,200,124,0.25);
       border-color: #e8c87c;
@@ -100,7 +99,6 @@
       font-size: 11px;
       color: #1a1430;
       font-weight: 700;
-      transition: all 0.2s;
     }
     .opt-btn.chosen .opt-circle {
       border-color: #e8c87c;
@@ -268,6 +266,141 @@
           "その失敗から新しいアプローチのヒントを探す",
         ],
       },
+      {
+        text: "締め切りが迫っているとき、あなたはどう動きますか？",
+        options: [
+          "優先順位を整理して、計画的にこなす",
+          "チームに声をかけて協力を求める",
+          "とにかく手を動かして間に合わせる",
+          "効率化できる方法を考えてから取りかかる",
+        ],
+      },
+      {
+        text: "新しいスキルを身につけるとき、どんな方法を選びますか？",
+        options: [
+          "本や資料を読んで体系的に理解する",
+          "誰かに教えてもらいながら実践する",
+          "まず試してみて、失敗しながら覚える",
+          "なぜ必要かを理解してからじっくり学ぶ",
+        ],
+      },
+      {
+        text: "あなたが最も得意なコミュニケーションスタイルは？",
+        options: [
+          "論理的・構造的に説明する",
+          "相手の気持ちに寄り添いながら話す",
+          "端的・結論ファーストで伝える",
+          "例えや比喩を使って分かりやすく伝える",
+        ],
+      },
+      {
+        text: "仕事の評価で最も嬉しいフィードバックはどれですか？",
+        options: [
+          "「あなたの分析は正確で信頼できる」",
+          "「チームの雰囲気が良くなったのはあなたのおかげ」",
+          "「結果を出してくれてありがとう」",
+          "「その発想は誰も思いつかなかった」",
+        ],
+      },
+      {
+        text: "リーダーに求める最も重要な資質は何ですか？",
+        options: [
+          "明確なビジョンと決断力",
+          "メンバーへの共感と信頼関係",
+          "目標達成への強いコミット",
+          "新しい発想で道を切り開く力",
+        ],
+      },
+      {
+        text: "自由な時間が突然できたら、仕事に関して何をしますか？",
+        options: [
+          "業界のトレンドや技術を調べる",
+          "同僚や知人と情報交換する",
+          "積み残しのタスクを片付ける",
+          "新しいアイデアをノートに書き出す",
+        ],
+      },
+      {
+        text: "あなたにとって「良い仕事」とは何ですか？",
+        options: [
+          "品質が高く、ミスのない仕事",
+          "関わる人全員が満足している仕事",
+          "期限内に成果を出した仕事",
+          "これまでにない価値を生んだ仕事",
+        ],
+      },
+      {
+        text: "困難な課題に直面したとき、まず何をしますか？",
+        options: [
+          "問題を細かく分解して整理する",
+          "信頼できる人に相談する",
+          "とにかく動いて突破口を探す",
+          "前例や他分野からヒントを探す",
+        ],
+      },
+      {
+        text: "会議中のあなたの行動に近いのはどれですか？",
+        options: [
+          "データや事実を整理して発言する",
+          "他のメンバーの意見を引き出す",
+          "議題を前に進めようと積極的に発言する",
+          "議論に新しい視点を加える",
+        ],
+      },
+      {
+        text: "仕事でストレスを感じる場面はどれですか？",
+        options: [
+          "不正確な情報や根拠のない決定",
+          "チームの雰囲気が悪くなったとき",
+          "成果が出ない・目標が達成できないとき",
+          "ルーティンばかりで変化がないとき",
+        ],
+      },
+      {
+        text: "あなたが自然と担う役割はどれですか？",
+        options: [
+          "情報を整理してまとめる役",
+          "メンバーのフォローをする役",
+          "全体を引っ張るリーダー役",
+          "斬新なアイデアを出す役",
+        ],
+      },
+      {
+        text: "長期的なキャリアで最も重視することは？",
+        options: [
+          "専門性・スペシャリストとしての深み",
+          "人との繋がりと信頼の積み重ね",
+          "実績・成果のトラックレコード",
+          "常に新しい挑戦と変化",
+        ],
+      },
+      {
+        text: "チームへの貢献として最も自信があることは？",
+        options: [
+          "正確で質の高いアウトプット",
+          "メンバーのモチベーション維持",
+          "スピードと推進力",
+          "ユニークな発想や問題解決策",
+        ],
+      },
+      {
+        text: "あなたにとって理想の上司像は？",
+        options: [
+          "明確な指示と基準を示してくれる人",
+          "個人の成長を応援してくれる人",
+          "権限を委譲して任せてくれる人",
+          "一緒に新しいことに挑戦してくれる人",
+        ],
+      },
+      {
+        text: "10年後の自分に最も近いイメージはどれですか？",
+        options: [
+          "その道のプロフェッショナルとして頼られる存在",
+          "多くの人から信頼され、相談される存在",
+          "大きな組織やプロジェクトをまとめるリーダー",
+          "新しいビジネスや価値を生み出す起業家・革新者",
+        ],
+      },
     ];
 
     // ─── State ──────────────────────────────────────────────
@@ -306,7 +439,7 @@
         </p>
         <div class="card" style="border-radius:16px;padding:28px 32px;margin-bottom:32px">
           <p class="font-crimson text-main" style="font-size:16px;line-height:1.8">
-            5つの質問に答えるだけで、AIがあなたの
+            20の質問に答えるだけで、AIがあなたの
             <strong class="text-accent">仕事タイプ・向いている役割</strong>を分析します。
             正直に、直感で選んでください。
           </p>
@@ -364,7 +497,19 @@
         const label = document.createTextNode(opt);
         btn.appendChild(label);
 
-        btn.onclick = () => { state.selected = opt; render(); };
+        btn.onclick = () => {
+          state.selected = opt;
+          opts.querySelectorAll(".opt-btn").forEach((b, idx) => {
+            const isChosen = questions[state.current].options[idx] === opt;
+            b.classList.toggle("chosen", isChosen);
+            const c = b.querySelector(".opt-circle");
+            c.textContent = isChosen ? "✓" : "";
+          });
+          const nextBtn = card.querySelector(".next-btn");
+          nextBtn.classList.remove("inactive");
+          nextBtn.classList.add("active");
+          nextBtn.disabled = false;
+        };
         opts.appendChild(btn);
       });
       card.appendChild(opts);
