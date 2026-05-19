@@ -1,4 +1,224 @@
-  <script>
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>仕事タイプ診断</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Crimson+Pro:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      min-height: 100vh;
+      background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Georgia', serif;
+      padding: 24px;
+    }
+
+    #app {
+      width: 100%;
+      max-width: 560px;
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 0.6; }
+      50%       { opacity: 1; }
+    }
+
+    .fade-in { animation: fadeIn 0.6s ease forwards; }
+
+    /* Spinner */
+    .spinner {
+      width: 48px; height: 48px;
+      border: 3px solid rgba(232,200,124,0.2);
+      border-top-color: #e8c87c;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin: 0 auto 28px;
+    }
+
+    /* Card */
+    .card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 20px;
+      padding: 32px;
+      backdrop-filter: blur(10px);
+    }
+
+    /* Option buttons */
+    .opt-btn {
+      width: 100%;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 12px;
+      padding: 14px 18px;
+      color: #f0eaff;
+      text-align: left;
+      cursor: pointer;
+      font-family: 'Crimson Pro', serif;
+      font-size: 15px;
+      line-height: 1.5;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+    .opt-btn:last-of-type { margin-bottom: 0; }
+    .opt-btn:hover {
+      background: rgba(232,200,124,0.2);
+      border-color: #e8c87c;
+    }
+    .opt-btn, .opt-btn:hover, .opt-btn.chosen { transition: none; }
+    .opt-btn.chosen {
+      background: rgba(232,200,124,0.25);
+      border-color: #e8c87c;
+    }
+
+    .opt-circle {
+      width: 22px; height: 22px;
+      border-radius: 50%;
+      border: 2px solid rgba(255,255,255,0.2);
+      background: transparent;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      color: #1a1430;
+      font-weight: 700;
+    }
+    .opt-btn.chosen .opt-circle {
+      border-color: #e8c87c;
+      background: #e8c87c;
+    }
+
+    /* CTA button */
+    .cta-btn {
+      background: #e8c87c;
+      color: #1a1430;
+      border: none;
+      padding: 14px 40px;
+      border-radius: 40px;
+      font-size: 16px;
+      font-family: 'Cinzel', serif;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      box-shadow: 0 4px 16px rgba(232,200,124,0.3);
+    }
+    .cta-btn:hover {
+      background: #d4b46a;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(232,200,124,0.4);
+    }
+
+    /* Next button */
+    .next-btn {
+      margin-top: 24px;
+      width: 100%;
+      border: none;
+      padding: 13px;
+      border-radius: 12px;
+      font-size: 15px;
+      font-family: 'Cinzel', serif;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      cursor: pointer;
+      transition: all 0.25s ease;
+    }
+    .next-btn.active {
+      background: #e8c87c;
+      color: #1a1430;
+    }
+    .next-btn.active:hover {
+      background: #d4b46a;
+      transform: translateY(-2px);
+    }
+    .next-btn.inactive {
+      background: rgba(255,255,255,0.08);
+      color: rgba(240,234,255,0.5);
+      cursor: not-allowed;
+    }
+
+    /* Progress bar */
+    .progress-bar-wrap {
+      height: 3px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 4px;
+      overflow: hidden;
+      margin-top: 8px;
+    }
+    .progress-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #e8c87c, #f0d090);
+      border-radius: 4px;
+      transition: width 0.4s ease;
+    }
+
+    /* Role tags */
+    .role-tag {
+      display: inline-block;
+      background: rgba(232,200,124,0.12);
+      border: 1px solid rgba(232,200,124,0.3);
+      color: #e8c87c;
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 13px;
+      margin: 4px;
+      font-family: 'Crimson Pro', serif;
+    }
+
+    /* Retry button */
+    .retry-btn {
+      background: transparent;
+      color: #e8c87c;
+      border: 1px solid #e8c87c;
+      padding: 12px 32px;
+      border-radius: 40px;
+      font-size: 14px;
+      font-family: 'Cinzel', serif;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      letter-spacing: 0.05em;
+    }
+    .retry-btn:hover {
+      background: rgba(232,200,124,0.1);
+      transform: translateY(-2px);
+    }
+
+    /* Divider */
+    .divider {
+      height: 1px;
+      background: rgba(255,255,255,0.1);
+      margin: 0 0 24px;
+    }
+
+    /* Utility */
+    .text-accent  { color: #e8c87c; }
+    .text-main    { color: #f0eaff; }
+    .text-muted   { color: rgba(240,234,255,0.5); }
+    .font-cinzel  { font-family: 'Cinzel', serif; }
+    .font-crimson { font-family: 'Crimson Pro', serif; }
+  </style>
+</head>
+<body>
+  <div id="app"></div>
+
+    <script>
     // ─── Data ───────────────────────────────────────────────
     const questions = [
       {
@@ -477,3 +697,5 @@
     // ─── Boot ────────────────────────────────────────────────
     render();
   </script>
+</body>
+</html>
