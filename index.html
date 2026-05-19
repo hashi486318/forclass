@@ -515,15 +515,15 @@
       card.appendChild(opts);
 
       // Next button
-      const isLast = state.current + 1 === questions.length;
       const nextBtn = el("button", {
         class: "next-btn " + (state.selected ? "active" : "inactive"),
       });
-      nextBtn.textContent = isLast ? "診断する" : "次へ →";
+      nextBtn.textContent = state.current + 1 === questions.length ? "診断する" : "次へ →";
       nextBtn.disabled = !state.selected;
       nextBtn.onclick = () => {
         if (!state.selected) return;
-        state.answers.push({ q: q.text, a: state.selected });
+        const curQ = questions[state.current];
+        state.answers.push({ q: curQ.text, a: state.selected });
         state.selected = null;
         if (state.current + 1 < questions.length) {
           state.current++;
